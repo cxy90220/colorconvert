@@ -13,7 +13,7 @@ def tp(img, n=1000, lamb=400, gamma=50):
     # cin_g = img[:, :, 1]
     # cin_b = img[:, :, 2]
     # lin = 0.27 * cin_r + 0.67 * cin_g + 0.06 * cin_b
-    img = img / img.max()
+    # img = img / img.max()
     lab = rgb2lab(img)
     lin = lab[:, :, 0] / 100.0
     l_median = np.median(lin)
@@ -80,8 +80,8 @@ def tp(img, n=1000, lamb=400, gamma=50):
             c = (l_avg ** b) * b / ((lin[i, j] + l_avg) ** (b + 1)) * lin[i, j] / lout[i, j]
             s = (1.0 + k1) * (c ** k2) / (1.0 + k1 * (c ** k2))
             lab[i, j, 0] = lout[i, j] * 100.0
-            lab[i, j, 1] = lab[i, j, 1] * s * lout[i, j] / lin[i, j]
-            lab[i, j, 2] = lab[i, j, 2] * s * lout[i, j] / lin[i, j]
+            lab[i, j, 1] = lab[i, j, 1] * s
+            lab[i, j, 2] = lab[i, j, 2] * s
     rgb = lab2rgb(lab)
     for i in range(row):
         for j in range(col):
